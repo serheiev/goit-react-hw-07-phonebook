@@ -3,12 +3,12 @@ import { Input } from 'components/Input/Input';
 import { useState } from 'react';
 import { nanoid } from 'nanoid';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/contacts/contacts-slice';
+import { addContact } from 'redux/contacts/contacts-operations';
 import { selectedContacts } from 'redux/contacts/contacts-selectors';
 
 export const Form = () => {
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [phone, setPhone] = useState('');
   const contacts = useSelector(selectedContacts);
   const dispatch = useDispatch();
 
@@ -19,7 +19,7 @@ export const Form = () => {
         setName(value);
         break;
       case 'number':
-        setNumber(value);
+        setPhone(value);
         break;
       default:
         break;
@@ -33,9 +33,9 @@ export const Form = () => {
       return alert(`${name} is already in contacts`);
     }
 
-    dispatch(addContact({ id: nanoid(), name, number }));
+    dispatch(addContact({ id: nanoid(), name, phone }));
     setName('');
-    setNumber('');
+    setPhone('');
   };
 
   return (
@@ -57,7 +57,7 @@ export const Form = () => {
         <span>Number</span>
         <Input
           name="number"
-          value={number}
+          value={phone}
           type={'tel'}
           placeholder={'contact number'}
           onChange={inputChange}
